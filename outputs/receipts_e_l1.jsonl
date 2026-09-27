@@ -1,0 +1,10 @@
+{"i":1,"kind":"rule","payload":{"id":"R1-ref","def":"mul reference = explicit floor-division identity floor(p/2^32) = (p - mod(p,2^32))/2^32, then asIntN(64) — an independent route, not the >> operator"},"row_hash":"0xb42fc12a385f2061"}
+{"i":2,"kind":"rule","payload":{"id":"R2-ref","def":"cross-verifier = ../quilt-stone/stone.mjs if present; absent => honest SKIP, never a fake pass"},"row_hash":"0x8d57296aa5363fd2"}
+{"i":3,"kind":"rule","payload":{"id":"R3-ref","def":"exactness = stateHash equality after scrub-back, scrub-forward, and step-replay-after-rewind"},"row_hash":"0x3ecf0fdd73cb5040"}
+{"i":4,"kind":"rule","payload":{"id":"R4-ref","def":"boundary probe: charge exactly (C - gamma - eta) must succeed; charge one more raw unit must refuse"},"row_hash":"0xdc01c44eac88cf3a"}
+{"i":5,"kind":"rule","payload":{"id":"R5-ref","def":"static scan of engine.js for float-path tokens: Math.random, toFixed, parseFloat, parseFloat-equivalents"},"row_hash":"0x7b0931e1804af5fb"}
+{"i":6,"kind":"verdict","payload":{"id":"R1-q32-exact","ok":true,"detail":"100196 mul pairs vs independent floor-div identity, 0 mismatches; sat=true div=true sqrt=true"},"row_hash":"0x4388b80f9f1559f3"}
+{"i":7,"kind":"verdict","payload":{"id":"R2-chain","ok":true,"detail":"seal 50 verify OK; tamper row 23 caught at exact index 23; restore OK; stone.fnv1a64 agrees on all 50 rows"},"row_hash":"0x8042b22cb85877d8"}
+{"i":8,"kind":"verdict","payload":{"id":"R3-rewind","ok":true,"detail":"journal 1710 events verify; scrub 40->17->40 hash-equal; step-replay after rewind hash-equal (0 mismatches)"},"row_hash":"0xa6945530dc340f2d"}
+{"i":9,"kind":"verdict","payload":{"id":"R4-conservation","ok":true,"detail":"fill to exactly 6806210843 units ok; sub-unit charge free; +1 unit refused (6806210843 ok / 6806210844 refuse, arch lineage, >>22 dba scaling); refusal journaled"},"row_hash":"0x724bb5d256ebaa2c"}
+{"i":10,"kind":"verdict","payload":{"id":"R5-no-floats","ok":true,"detail":"engine compute path CLEAN (no Math.random / toFixed / parseFloat / float literals)"},"row_hash":"0xa8251fae21ddac37"}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>已落地 — yiluodi</title>
+<style>
+  :root {
+    --bg: #0d0f12; --panel: #14171c; --ink: #e8e6e0; --dim: #8a8f98;
+    --accent: #e0b34c; --landed: #7ec8a9; --refusal: #d97b6c; --edge: #3a4048;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: "Georgia", "Songti SC", "Noto Serif SC", serif;
+    min-height: 100vh;
+  }
+  header { padding: 28px 32px 12px; display: flex; align-items: baseline; gap: 18px; flex-wrap: wrap; }
+  h1 { font-size: 44px; font-weight: 500; letter-spacing: 2px; color: var(--ink); }
+  h1 .zh { color: var(--accent); }
+  .sub { color: var(--dim); font-size: 14px; max-width: 640px; line-height: 1.5; }
+  .status { margin-left: auto; text-align: right; font-size: 12px; color: var(--dim); font-family: "SF Mono", "Consolas", monospace; }
+  .status b { color: var(--landed); font-weight: 500; }
+  main { display: grid; grid-template-columns: minmax(480px, 1fr) 380px; gap: 16px; padding: 12px 32px 32px; }
+  @media (max-width: 980px) { main { grid-template-columns: 1fr; } }
+  .stage { background: var(--panel); border: 1px solid var(--edge); border-radius: 6px; padding: 14px; }
+  canvas { width: 100%; display: block; border-radius: 4px; }
+  .controls { display: flex; gap: 10px; align-items: center; margin-top: 12px; flex-wrap: wrap; }
+  button, select {
+    background: #1c2128; color: var(--ink); border: 1px solid var(--edge);
+    padding: 7px 14px; border-radius: 4px; cursor: pointer; font-size: 13px;
+    font-family: inherit;
+  }
+  button:hover { border-color: var(--accent); }
+  button.on { border-color: var(--accent); color: var(--accent); }
+  button:disabled { opacity: 0.35; cursor: default; }
+  input[type=range] { flex: 1; min-width: 120px; accent-color: var(--accent); }
+  .toggles { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .toggles button { font-size: 12px; padding: 5px 10px; }
+  .hint { color: var(--dim); font-size: 12px; margin-top: 8px; font-style: italic; }
+  aside { background: var(--panel); border: 1px solid var(--edge); border-radius: 6px; display: flex; flex-direction: column; min-height: 420px; }
+  .tabs { display: flex; border-bottom: 1px solid var(--edge); }
+  .tabs button { border: 0; border-radius: 0; background: transparent; padding: 12px 8px; flex: 1; color: var(--dim); font-size: 12px; }
+  .tabs button.act { color: var(--accent); border-bottom: 2px solid var(--accent); }
+  .tabbody { flex: 1; overflow-y: auto; padding: 12px 14px; font-size: 12.5px; line-height: 1.55; max-height: 560px; }
+  .tabbody .line { margin-bottom: 6px; }
+  .tabbody .story { color: var(--accent); }
+  .tabbody .landing { color: var(--landed); }
+  .tabbody .refusal { color: var(--refusal); }
+  .tabbody .mono { font-family: "SF Mono", "Consolas", monospace; font-size: 11px; color: var(--dim); }
+  table.ledger { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.ledger td, table.ledger th { padding: 4px 6px; border-bottom: 1px solid var(--edge); text-align: left; }
+  table.ledger th { color: var(--dim); font-weight: 400; }
+  .exportrow { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+  /* the name moment */
+  #namemoment {
+    position: fixed; inset: 0; background: rgba(6,7,9,0.88); display: none;
+    align-items: center; justify-content: center; z-index: 50; text-align: center;
+  }
+  #namemoment .card { max-width: 560px; padding: 40px; }
+  #namemoment .zh { font-size: 64px; color: var(--accent); letter-spacing: 8px; }
+  #namemoment p { margin-top: 18px; font-size: 17px; line-height: 1.7; }
+  #namemoment .fine { margin-top: 22px; font-size: 12.5px; color: var(--dim); }
+  #namemoment button { margin-top: 26px; }
+  /* sub-sheet modal */
+  #subsheet {
+    position: fixed; inset: 0; background: rgba(6,7,9,0.88); display: none;
+    align-items: center; justify-content: center; z-index: 40;
+  }
+  #subsheet .card { background: var(--panel); border: 1px solid var(--edge); border-radius: 6px; padding: 20px; width: min(620px, 92vw); }
+  #subsheet h3 { font-weight: 500; margin-bottom: 4px; }
+  #subsheet .mono { color: var(--dim); font-size: 11px; font-family: "SF Mono", monospace; margin-bottom: 10px; }
+  footer { padding: 0 32px 28px; color: var(--dim); font-size: 12px; line-height: 1.6; }
+  footer b { color: var(--accent); font-weight: 500; }
+</style>
+</head>
+<body>
+<header>
+  <h1><span class="zh">已落地</span></h1>
+  <div class="sub">
+    yǐ luòdì — <i>the name is not translated; it is learned.</i><br>
+    Six honest knowers hold one part each of a hidden animal and answer the same question.
+    Watch beliefs argue, settle, and — when they hold still with independent support — <b>land</b>.
+  </div>
+  <div class="status" id="status">…</div>
+</header>
+
+<main>
+  <section class="stage">
+    <canvas id="grid" width="920" height="560"></canvas>
+    <div class="controls">
+      <button id="play">⏸ pause</button>
+      <button id="step">step</button>
+      <button id="restart">restart</button>
+      <span class="hint" id="modehint">the story plays itself; click a knower to look inside it</span>
+      <input type="range" id="scrub" min="0" max="60" value="0">
+    </div>
+    <div class="toggles" id="toggles"></div>
+    <div class="hint">every state change is journaled; the scrubber rewinds and re-plays EXACTLY (bit-for-bit, no search) — drag it.</div>
+  </section>
+
+  <aside>
+    <div class="tabs">
+      <button data-tab="log" class="act">ActiveLog</button>
+      <button data-tab="ledger">ActiveLedger</button>
+      <button data-tab="receipts">Receipts</button>
+      <button data-tab="export">Export</button>
+    </div>
+    <div class="tabbody" id="tabbody"></div>
+  </aside>
+</main>
+
+<footer>
+  <b>已落地</b> — a hello-world for SuperInstance. Zero dependencies, zero network calls, works from a file double-click.
+  Fork it: <span class="mono">EXO.ports.registerObserver / registerKernel / registerExporter</span> are the seams for your hardware, APIs, and plugins.
+  This page is the elephant round of a longer protocol: murmur-protocol v3.1 influence, quilt-arch q32 arithmetic, quilt-raw exact rewind, quilt-dba conservation, exoj observation discipline, quilt-stone receipt chains.
+</footer>
+
+<div id="namemoment">
+  <div class="card">
+    <div class="zh">已落地</div>
+    <p>yǐ luòdì — literally, <i>has landed</i>.<br>
+    You have just watched a belief land.</p>
+    <p class="fine">
+      The name of this page was never translated. It was learned, right now, from what happened in front of you.<br><br>
+      给中文读者：在这个房间里，「落地」不再是幻灯片上的词。它刚刚发生了，并且带着收据。
+    </p>
+    <button id="nameok">continue the story</button>
+  </div>
+</div>
+
+<div id="subsheet">
+  <div class="card">
+    <h3 id="subsheet-title"></h3>
+    <div class="mono" id="subsheet-meta"></div>
+    <canvas id="subgrid" width="560" height="340"></canvas>
+    <div class="hint" id="subsheet-hint"></div>
+    <button id="subsheet-close">close</button>
+  </div>
+</div>
+
+<script src="app/engine.js"></script>
+<script src="app/elephant.js"></script>
+<script src="app/wasmq32.js"></script>
+<script src="app/ui.js"></script>
+</body>
+</html>

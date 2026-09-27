@@ -1,0 +1,24 @@
+{
+  "experiment": "e_l3_routing",
+  "title": "the answers are in the routing (two cents on the back-burner)",
+  "verdicts": [
+    {
+      "id": "R1-exact-table",
+      "ok": true,
+      "detail": "15 pairs frozen into the table; 0 mismatches on recomputation (bit-exact decomposition)"
+    },
+    {
+      "id": "R2-op-economy",
+      "ok": true,
+      "detail": "10000 queries: lookup 0 arithmetic ops vs computed 300000 ops (15 mul + 12 add + 2 sqrt + 1 div per answer); 0 answer mismatches"
+    },
+    {
+      "id": "R3-pruning",
+      "ok": true,
+      "detail": "max |error| by abstraction: L2_pairs(15 entries) 0.000000 <= L1_parts(11) 0.000481 <= L0_words(11) 0.000481 — space shrinks, error grows, measured"
+    }
+  ],
+  "ok": true,
+  "chainTip": "0x105e4fb30bba5203",
+  "chainLinks": 6
+}

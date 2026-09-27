@@ -1,0 +1,34 @@
+{
+  "experiment": "e_l1_core",
+  "title": "the core machine, priced and proven",
+  "verdicts": [
+    {
+      "id": "R1-q32-exact",
+      "ok": true,
+      "detail": "100196 mul pairs vs independent floor-div identity, 0 mismatches; sat=true div=true sqrt=true"
+    },
+    {
+      "id": "R2-chain",
+      "ok": true,
+      "detail": "seal 50 verify OK; tamper row 23 caught at exact index 23; restore OK; stone.fnv1a64 agrees on all 50 rows"
+    },
+    {
+      "id": "R3-rewind",
+      "ok": true,
+      "detail": "journal 1710 events verify; scrub 40->17->40 hash-equal; step-replay after rewind hash-equal (0 mismatches)"
+    },
+    {
+      "id": "R4-conservation",
+      "ok": true,
+      "detail": "fill to exactly 6806210843 units ok; sub-unit charge free; +1 unit refused (6806210843 ok / 6806210844 refuse, arch lineage, >>22 dba scaling); refusal journaled"
+    },
+    {
+      "id": "R5-no-floats",
+      "ok": true,
+      "detail": "engine compute path CLEAN (no Math.random / toFixed / parseFloat / float literals)"
+    }
+  ],
+  "ok": true,
+  "chainTip": "0xa8251fae21ddac37",
+  "chainLinks": 10
+}

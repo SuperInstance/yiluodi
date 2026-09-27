@@ -1,0 +1,25 @@
+{
+  "experiment": "e_l4_wasm",
+  "title": "the kernel in the metal",
+  "verdicts": [
+    {
+      "id": "R1-module",
+      "ok": true,
+      "detail": "104 bytes, fnv 0xb83148f34da26154, exports qmul(i64,i64)->i64"
+    },
+    {
+      "id": "R2-bit-exact",
+      "ok": true,
+      "detail": "200256 pairs (16x16 corners + 200k random) vs checkedMul, 0 mismatches — the no-i128 identity holds"
+    },
+    {
+      "id": "R3-timing",
+      "ok": true,
+      "detail": "200k mul: BigInt reference 49.8ms, WASM kernel 7.8ms (6.38x) — both consumed identical inputs, sinks sane: js=true wasm=true"
+    }
+  ],
+  "ok": true,
+  "moduleBytes": 104,
+  "chainTip": "0xea768939e9cb6d81",
+  "chainLinks": 6
+}

@@ -1,0 +1,37 @@
+{
+  "experiment": "e_l2_elephant",
+  "title": "the parable is a test",
+  "verdicts": [
+    {
+      "id": "R1-parable",
+      "ok": true,
+      "detail": "{\"legL\":\"pillar\",\"legR\":\"pillar\",\"tusk\":\"spear\",\"trunk\":\"snake\",\"tail\":\"rope\",\"ear\":\"fan\"}"
+    },
+    {
+      "id": "R2-traveler",
+      "ok": true,
+      "detail": "argmax=elephant; elephant share=0.852133 (> 1/2); coherence=0.704266 (computed from 15 pairwise cosines)"
+    },
+    {
+      "id": "R3-divergence",
+      "ok": true,
+      "detail": "pillar-pair 4294945600 > cross-mean 4044567509 (raw q32); 5/6 distinct answers; carried name: floor held 6/6, flare exceeded 6/6; traveler min-agreement reported honestly: 0.433983"
+    },
+    {
+      "id": "R4-landing",
+      "ok": true,
+      "detail": "7/7 landed; landings sealed: 7; supports>=2: true; world chain 18 links VERIFIED; order: tusk@17, trunk@17, tail@17, ear@18, legL@19, legR@19, traveler@57"
+    },
+    {
+      "id": "R5-ideation",
+      "ok": true,
+      "detail": "6/6 knowers predicting; 728 predictions logged into the ledger: 112.000000/112 112.000000/112 140.000000/140 140.000000/140 112.000000/112 112.000000/112"
+    }
+  ],
+  "ok": true,
+  "coherence": "0.704266",
+  "chainTip": "0x3c4c48030dc39b88",
+  "chainLinks": 9,
+  "worldChainTip": "0xaf63e1fb1b2f0953",
+  "worldChainLinks": 18
+}
