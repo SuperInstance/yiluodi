@@ -5,7 +5,8 @@
   "main": "app/engine.js",
   "scripts": {
     "test": "node experiments/run_all.mjs && node smoke.mjs",
-    "smoke": "node smoke.mjs"
+    "smoke": "node smoke.mjs",
+    "chaos": "node experiments/e_c2_chaos.mjs"
   },
   "keywords": ["superinstance", "quilt", "murmur-protocol", "fixed-point", "receipt-chain", "zero-dependency"],
   "license": "MIT",

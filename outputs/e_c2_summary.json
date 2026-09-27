@@ -1,0 +1,73 @@
+{
+  "experiment": "E-C2 crash-consistency chaos (yiluodi journal + rewind, TEST-ONLY adapter)",
+  "honest_target": "journal event log + exact bidirectional rewind via experiments/chaos_persist2.mjs (TEST-ONLY); browser/IndexedDB untestable from Node — receipted; app/engine.js UNTOUCHED",
+  "seed": 4242,
+  "script_actions": 60,
+  "script_events": 725,
+  "rules_sealed_before_runs": true,
+  "verdicts": {
+    "R1": "PASS",
+    "R2": "PASS",
+    "R3a": "PASS",
+    "R3b": "PASS",
+    "R3c": "PASS",
+    "R4": "INFO-ARM",
+    "R5": "PASS"
+  },
+  "metrics": {
+    "kill": {
+      "trials": 20,
+      "pass": 20,
+      "lostMax": 561,
+      "completedBeforeKill": 7,
+      "tornTails": 0
+    },
+    "r2": {
+      "checks": 20,
+      "replayOk": 20,
+      "roundtripOk": 20,
+      "scrubOk": 20
+    },
+    "r3a": {
+      "flips": 600,
+      "coverage": 1,
+      "undetected": 0,
+      "controlFalseAlarms": 0
+    },
+    "r3b": {
+      "caseFlips": 120,
+      "coverage": 1,
+      "undetected": 0
+    },
+    "r3c": {
+      "rejectedAtIndex": 10,
+      "probes": 10,
+      "rejected": 10
+    },
+    "r4": {
+      "meanLostFsync": 58.13,
+      "meanLostBuffer": 66.13,
+      "tornArmTornTails": 8
+    },
+    "r5": {
+      "trials": 30,
+      "cleanPrefix": 30,
+      "failures": 0
+    }
+  },
+  "chain": {
+    "links": 15,
+    "tip": "0xf0a8a4f580c939a2",
+    "verify": {
+      "ok": true,
+      "tip": "0xf0a8a4f580c939a2",
+      "links": 15
+    }
+  },
+  "artifacts": [
+    "experiments/chaos_persist2.mjs (TEST-ONLY adapter)",
+    "experiments/chaos_world2.mjs (TEST-ONLY script)",
+    "experiments/chaos_child2.mjs (SIGKILL victim)",
+    "app/engine.js (UNTOUCHED)"
+  ]
+}
