@@ -3,4 +3,4 @@
 {"i":3,"kind":"rule","payload":{"id":"R3-ref","def":"timing = wall clock over identical input sets, same process, reported honestly (not a gate)"},"row_hash":"0x4361eaf8aa13b4b2"}
 {"i":4,"kind":"verdict","payload":{"id":"R1-module","ok":true,"detail":"104 bytes, fnv 0xb83148f34da26154, exports qmul(i64,i64)->i64"},"row_hash":"0x91b7eaaa5f7e2d98"}
 {"i":5,"kind":"verdict","payload":{"id":"R2-bit-exact","ok":true,"detail":"200256 pairs (16x16 corners + 200k random) vs checkedMul, 0 mismatches — the no-i128 identity holds"},"row_hash":"0x530eb227be912868"}
-{"i":6,"kind":"verdict","payload":{"id":"R3-timing","ok":true,"detail":"200k mul: BigInt reference 49.8ms, WASM kernel 7.8ms (6.38x) — both consumed identical inputs, sinks sane: js=true wasm=true"},"row_hash":"0xea768939e9cb6d81"}
+{"i":6,"kind":"verdict","payload":{"id":"R3-timing","ok":true,"detail":"200k mul: BigInt reference 49.0ms, WASM kernel 8.1ms (6.07x) — both consumed identical inputs, sinks sane: js=true wasm=true"},"row_hash":"0x3c2d38380d721d5d"}
